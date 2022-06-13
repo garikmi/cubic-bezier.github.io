@@ -64,12 +64,11 @@ function resizeCanvas() {
   // handle2_x = canvas.width - horizontal_margins;
   // handle2_y = canvas.height / 2;
 
-  // drawStuff(); 
+  drawStuff(); 
 }
 
 resizeCanvas();
 
-// drawStuff(); 
 
 function drawStuff() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -89,9 +88,9 @@ function drawStuff() {
   drawCircle(handle1_x, handle1_y, circle_radius, "#6e6a86", "#908caa", 1.5);
   drawCircle(handle2_x, handle2_y, circle_radius, "#6e6a86", "#908caa", 1.5);
 
-  handle1 = `${((handle1_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")},${(((-handle1_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
+  var handle1 = `${((handle1_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")},${(((-handle1_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`,
+      handle2 = `${((handle2_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")},${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
 
-  handle2 = `${((handle2_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")},${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
   document.getElementById("output1").innerHTML = `cubic-bezier(${handle1},${handle2})`;
   // document.getElementById("output2").innerHTML = `1s cubic-bezier(${handle1},${handle2})`;
   // document.getElementById("output3").innerHTML = `${handle1},${handle2}`;
