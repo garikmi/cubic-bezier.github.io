@@ -5,9 +5,6 @@ canvasOffset = $("#canvas").offset();
 offsetX = canvasOffset.left;
 offsetY = canvasOffset.top;
 
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;
-
 var WIDTH = canvas.width,
     HEIGHT = canvas.height;
 
@@ -29,17 +26,19 @@ var handle1_x = 0 + horizontal_margins;
     handle2_x = WIDTH - horizontal_margins;
     handle2_y = HEIGHT / 2;
 
+var x_handle1 = `${((handle1_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`,
+    y_handle1 = `${(((-handle1_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
+
+var x_handle2 = `${((handle2_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`,
+    y_handle2 = `${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
+
 var circle_radius = 8;
 
 var selected = null;
 
+// Detect if window is resized, update variables and redraw everything
 window.addEventListener('resize', resizeCanvas, false);
-
 function resizeCanvas() {
-  // canvas.width = window.innerWidth;
-  // canvas.height = window.innerHeight;
-  // WIDTH = canvas.width;
-  // HEIGHT = canvas.height;
   canvasOffset = $("#canvas").offset();
   offsetX = canvasOffset.left;
   offsetY = canvasOffset.top;
@@ -53,28 +52,21 @@ function resizeCanvas() {
   origin_y = canvas.height - vertical_margins;
   ending_x = canvas.width - horizontal_margins;
   ending_y = vertical_margins;
- 
-  // handle1_x = 0 + horizontal_margins;
-  // handle1_y = HEIGHT / 2;
-  // handle2_x = WIDTH - horizontal_margins;
-  // handle2_y = HEIGHT / 2;
 
-  // handle1_x = 0 + horizontal_margins;
-  // handle1_y = canvas.height / 2;
-  // handle2_x = canvas.width - horizontal_margins;
-  // handle2_y = canvas.height / 2;
+  calculateHandleCoords();
 
   drawStuff(); 
+  setAnimation("2s", x_handle1, y_handle1, x_handle2, y_handle2);
+  displayCoordinates(x_handle1, y_handle1, x_handle2, y_handle2);
 }
 
 resizeCanvas();
 
-
+// Draw all element on the canvas
 function drawStuff() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   drawGrid(10, "#e0def430", 2);
-  // drawGrid(10, "rgb(224,222,244,10)", 1);
 
   ctx.beginPath();
   ctx.moveTo(origin_x, origin_y);
@@ -88,34 +80,18 @@ function drawStuff() {
 
   drawCircle(handle1_x, handle1_y, circle_radius, "#6e6a86", "#908caa", 1.5);
   drawCircle(handle2_x, handle2_y, circle_radius, "#6e6a86", "#908caa", 1.5);
-
-  const x_handle1 = `${((handle1_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`,
-        y_handle1 = `${(((-handle1_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
-
-  const x_handle2 = `${((handle2_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`,
-        y_handle2 = `${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
-
-  document.getElementById("animate").style.transitionDuration = "2s";
-  document.getElementById("animate").style.transitionTimingFunction = `cubic-bezier(${x_handle1}, ${y_handle1}, ${x_handle2}, ${y_handle2})`;
-
-  document.getElementById("output1").innerHTML = `cubic-bezier(${x_handle1},${y_handle1},${x_handle2},${y_handle2})`;
-  // document.getElementById("output2").innerHTML = `1s cubic-bezier(${handle1},${handle2})`;
-  // document.getElementById("output3").innerHTML = `${handle1},${handle2}`;
 }
 
-// TODO: Add clipboard support
-// function copyToClipboard() {
-//   var value = "this is a tests";
-//   navigator.clipboard.writeText(value);
-//   alert("Copied the text: " + value);
-// }
-
+// Detect click and disable text highlighting if handle is selected
 document.onmousedown = disableselect;
 function disableselect() {  
   if (selected != null) {
     return false  
   }
 }
+
+// Get mouse coordinates and detect which handle was clicked on
+// Then enable mouse move detection
 function handleMouseDown(e) {
   mouseX = parseInt(e.clientX - offsetX);
   mouseY = parseInt(e.clientY - offsetY);
@@ -129,13 +105,14 @@ function handleMouseDown(e) {
   document.onmousemove = handleMouseMove;
 }
 
+// Deselect handles and disable mouse move detection to allow
+// highlighting text
 document.onmouseup = handleMouseUp;
-function handleMouseUp(event) {
+function handleMouseUp() {
   selected = null;
   document.onmousemove = null;
 }
 
-// document.onmousemove = handleMouseMove;
 function handleMouseMove(event) {
   var x = event.pageX - offsetX;
   var y = event.pageY - offsetY;
@@ -161,14 +138,38 @@ function handleMouseMove(event) {
     handle2_x = x;
     handle2_y = y;
   }
+
+  calculateHandleCoords();
   
   drawStuff();
+  setAnimation("2s", x_handle1, y_handle1, x_handle2, y_handle2);
+  displayCoordinates(x_handle1, y_handle1, x_handle2, y_handle2);
 }
 
+// Listen for mouse clicks on canvas
 $("#canvas").mousedown(function (e) {
   handleMouseDown(e);
 });
 
+// Calcualating handle coords and displaying them
+function calculateHandleCoords(){
+  x_handle1 = `${((handle1_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
+  y_handle1 = `${(((-handle1_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
+
+  x_handle2 = `${((handle2_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
+  y_handle2 = `${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
+}
+
+function setAnimation(speed, x1, y1, x2, y2) {
+  document.getElementById("animate").style.transitionDuration = speed;
+  document.getElementById("animate").style.transitionTimingFunction = `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
+}
+
+function displayCoordinates(x1, y1, x2, y2) {
+  document.getElementById("output1").innerHTML = `cubic-bezier(${x1},${y1},${x2},${y2})`;
+}
+
+// Drawing
 function drawLine(from_x, from_y, to_x, to_y, color, width) {
   ctx.beginPath();
   ctx.moveTo(from_x, from_y);
