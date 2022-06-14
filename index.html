@@ -5,13 +5,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="output.css">
   </head>
-  <body class="bg-base font-mono text-center">
+  <body class="bg-base font-mono">
     <canvas id="canvas" class="mx-auto mt-24 block" width="300" height="300"></canvas>
     <!-- <h1 id="output1" class="text-text mt-5 hover:underline hover:cursor-pointer inline-block"></h1><br> -->
     <!-- <h1 id="output2" class="text-text mt-1 hover:underline hover:cursor-pointer inline-block"></h1><br> -->
     <!-- <h1 id="output3" class="text-text mt-1 hover:underline hover:cursor-pointer inline-block" onclick="copyToClipboard()"></h1> -->
 
-    <h1 id="output1" class="text-text mt-5">cubic-bezier(x,y,x,y)</h1>
+    <h1 id="output1" class="text-text text-center mt-5">cubic-bezier(x,y,x,y)</h1>
+
+    <h3 class="text-text text-center mt-11">Hover your mouse over the bubble to see animation</h3>
+    <div class="border-2 border-muted max-w-xl rounded-full mt-5 px-1 py-1 mx-auto">
+      <span id="animate" class="w-0 p-6 hover:w-full bg-love rounded-full align-top inline-block"></span>
+    </div>
+
     <script src="javascript.js"></script>
   </body>
 </html>

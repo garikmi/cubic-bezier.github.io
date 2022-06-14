@@ -73,7 +73,8 @@ resizeCanvas();
 function drawStuff() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  drawGrid(10, "#e0def4", 1);
+  drawGrid(10, "#e0def430", 2);
+  // drawGrid(10, "rgb(224,222,244,10)", 1);
 
   ctx.beginPath();
   ctx.moveTo(origin_x, origin_y);
@@ -88,10 +89,16 @@ function drawStuff() {
   drawCircle(handle1_x, handle1_y, circle_radius, "#6e6a86", "#908caa", 1.5);
   drawCircle(handle2_x, handle2_y, circle_radius, "#6e6a86", "#908caa", 1.5);
 
-  var handle1 = `${((handle1_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")},${(((-handle1_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`,
-      handle2 = `${((handle2_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")},${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
+  const x_handle1 = `${((handle1_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`,
+        y_handle1 = `${(((-handle1_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
 
-  document.getElementById("output1").innerHTML = `cubic-bezier(${handle1},${handle2})`;
+  const x_handle2 = `${((handle2_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`,
+        y_handle2 = `${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
+
+  document.getElementById("animate").style.transitionDuration = "2s";
+  document.getElementById("animate").style.transitionTimingFunction = `cubic-bezier(${x_handle1}, ${y_handle1}, ${x_handle2}, ${y_handle2})`;
+
+  document.getElementById("output1").innerHTML = `cubic-bezier(${x_handle1},${y_handle1},${x_handle2},${y_handle2})`;
   // document.getElementById("output2").innerHTML = `1s cubic-bezier(${handle1},${handle2})`;
   // document.getElementById("output3").innerHTML = `${handle1},${handle2}`;
 }
