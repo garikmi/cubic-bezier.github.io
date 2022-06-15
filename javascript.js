@@ -36,8 +36,6 @@ var circle_radius = 8;
 
 var selected = null;
 
-var topScrollOffset;
-
 // Detect if window is resized, update variables and redraw everything
 window.addEventListener('resize', resizeCanvas, false);
 function resizeCanvas() {
