@@ -36,6 +36,8 @@ var circle_radius = 8;
 
 var selected = null;
 
+var topScrollOffset;
+
 // Detect if window is resized, update variables and redraw everything
 window.addEventListener('resize', resizeCanvas, false);
 function resizeCanvas() {
@@ -93,8 +95,8 @@ function disableselect() {
 // Get mouse coordinates and detect which handle was clicked on
 // Then enable mouse move detection
 function handleMouseDown(e) {
-  mouseX = parseInt(e.clientX - offsetX);
-  mouseY = parseInt(e.clientY - offsetY);
+  mouseX = parseInt(e.clientX - offsetX + window.pageXOffset);
+  mouseY = parseInt(e.clientY - offsetY + window.pageYOffset);
 
   if (((mouseX < handle1_x + circle_radius) && (mouseX > handle1_x - circle_radius)) && ((mouseY < handle1_y + circle_radius) && (mouseY > handle1_y - circle_radius))) {
     selected = 1;
@@ -151,7 +153,7 @@ $("#canvas").mousedown(function (e) {
   handleMouseDown(e);
 });
 
-// Calcualating handle coords and displaying them
+// Calculating handle coords and displaying them
 function calculateHandleCoords(){
   x_handle1 = `${((handle1_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
   y_handle1 = `${(((-handle1_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
