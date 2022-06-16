@@ -26,15 +26,30 @@ var handle1_x = 0 + horizontal_margins;
     handle2_x = WIDTH - horizontal_margins;
     handle2_y = HEIGHT / 2;
 
-var x_handle1 = `${((handle1_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`,
-    y_handle1 = `${(((-handle1_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
-
-var x_handle2 = `${((handle2_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`,
-    y_handle2 = `${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
+var x_handle1,
+    y_handle1;
+var x_handle2,
+    y_handle2;
+calculateHandleCoords();
 
 var circle_radius = 8;
 
+var animation_speed;
+
 var selected = null;
+
+// Get value from slider and set animation speed
+var slider = document.getElementById("range-slider");
+var output = document.getElementById("range-label");
+output.innerHTML = (parseFloat(slider.value)).toFixed(1);
+animation_speed = parseFloat(slider.value);
+setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
+
+slider.oninput = function() {
+  output.innerHTML = (parseFloat(this.value)).toFixed(1);
+  animation_speed = parseFloat(slider.value);
+  setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
+}
 
 // Detect if window is resized, update variables and redraw everything
 window.addEventListener('resize', resizeCanvas, false);
@@ -56,7 +71,7 @@ function resizeCanvas() {
   calculateHandleCoords();
 
   drawStuff(); 
-  setAnimation("2s", x_handle1, y_handle1, x_handle2, y_handle2);
+  setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
   displayCoordinates(x_handle1, y_handle1, x_handle2, y_handle2);
 }
 
@@ -111,6 +126,7 @@ document.onmouseup = handleMouseUp;
 function handleMouseUp() {
   selected = null;
   document.onmousemove = null;
+  setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
 }
 
 function handleMouseMove(event) {
@@ -142,7 +158,6 @@ function handleMouseMove(event) {
   calculateHandleCoords();
   
   drawStuff();
-  setAnimation("2s", x_handle1, y_handle1, x_handle2, y_handle2);
   displayCoordinates(x_handle1, y_handle1, x_handle2, y_handle2);
 }
 
@@ -152,7 +167,7 @@ $("#canvas").mousedown(function (e) {
 });
 
 // Calculating handle coords and displaying them
-function calculateHandleCoords(){
+function calculateHandleCoords() {
   x_handle1 = `${((handle1_x - horizontal_margins) / (WIDTH - horizontal_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
   y_handle1 = `${(((-handle1_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
 
