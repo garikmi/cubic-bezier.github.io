@@ -5,14 +5,37 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="output.css">
     <style>
-      .slider::-webkit-slider-thumb {
+      input[type="range"] {
         -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        border-radius: 100%;
+        overflow: hidden;
+        border-radius: 500px;
+        height: 10px;
+        transition: height 0.2s ease-in-out;
+      }
+      input[type="range"]:hover {
+        cursor: grab;
+      }
+      input[type="range"]:active {
+        height: 20px;
+        transition: height 0.2s ease-in-out;
+        cursor: grabbing;
+      }
+      input[type="range"]::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        background: #908caa;
+        overflow: hidden;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 0px;
+        height: 10px;
         background: #eb6f92;
-        cursor: pointer;
+        box-shadow: -800px 0 0 800px #eb6f92;
+        transition: height 0.2s ease-in-out;
+      }
+      input[type="range"]:active::-webkit-slider-thumb {
+        height: 20px;
+        transition: height 0.2s ease-in-out;
       }
     </style>
   </head>
@@ -27,7 +50,7 @@
     </div>
 
     <div class="mt-5 max-w-xl mx-auto whitespace-nowrap flex items-center gap-x-3">
-      <input class="slider h-3 rounded-full bg-muted flex-1" style="-webkit-appearance: none;" id="range-slider" type="range" min="0.1" max="10" value="2" step="0.1">
+      <input class="flex-1" id="range-slider" type="range" min="0.1" max="10" value="2" step="0.1">
       <h3 class="text-text flex-none" id="range-label"></h3>
     </div>
 
