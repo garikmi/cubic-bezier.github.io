@@ -118,6 +118,7 @@ function handleMouseDown(e) {
     selected = 2;
   }
   document.onmousemove = handleMouseMove;
+  document.getElementById("canvas").style.cursor = "grabbing";
 }
 
 // Deselect handles and disable mouse move detection to allow
@@ -127,6 +128,7 @@ function handleMouseUp() {
   selected = null;
   document.onmousemove = null;
   setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
+  document.getElementById("canvas").style.cursor = "default";
 }
 
 function handleMouseMove(event) {
