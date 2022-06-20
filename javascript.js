@@ -222,3 +222,12 @@ function drawGrid(lines, color, width) {
     count += spacing;
   }
 }
+
+// Other functions
+// Resets range slider
+function resetTime() {
+  document.getElementById("range-slider").value = "2";
+  animation_speed = "2.0";
+  output.innerHTML = (parseFloat(slider.value)).toFixed(1);
+  setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
+}

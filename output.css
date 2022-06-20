@@ -591,16 +591,8 @@ video {
   display: none;
 }
 
-.h-3 {
-  height: 0.75rem;
-}
-
 .w-0 {
   width: 0px;
-}
-
-.w-full {
-  width: 100%;
 }
 
 .max-w-xl {
@@ -655,11 +647,6 @@ video {
   background-color: rgb(235 111 146 / var(--tw-bg-opacity));
 }
 
-.bg-muted {
-  --tw-bg-opacity: 1;
-  background-color: rgb(110 106 134 / var(--tw-bg-opacity));
-}
-
 .p-5 {
   padding: 1.25rem;
 }
@@ -705,4 +692,8 @@ video {
 
 .hover\:w-full:hover {
   width: 100%;
+}
+
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
 }
