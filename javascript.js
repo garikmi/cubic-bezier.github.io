@@ -113,12 +113,13 @@ function handleMouseDown(e) {
 
   if (((mouseX < handle1_x + circle_radius) && (mouseX > handle1_x - circle_radius)) && ((mouseY < handle1_y + circle_radius) && (mouseY > handle1_y - circle_radius))) {
     selected = 1;
+    document.getElementById("canvas").style.cursor = "grabbing";
   }
   if (((mouseX < handle2_x + circle_radius) && (mouseX > handle2_x - circle_radius)) && ((mouseY < handle2_y + circle_radius) && (mouseY > handle2_y - circle_radius))) {
     selected = 2;
+    document.getElementById("canvas").style.cursor = "grabbing";
   }
   document.onmousemove = handleMouseMove;
-  document.getElementById("canvas").style.cursor = "grabbing";
 }
 
 // Deselect handles and disable mouse move detection to allow
