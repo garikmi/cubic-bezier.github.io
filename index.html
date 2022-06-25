@@ -47,22 +47,33 @@
       }
     </style>
   </head>
+
   <body class="bg-base font-mono p-5">
-    <canvas id="canvas" class="mx-auto mt-24 block" width="300" height="300"></canvas>
+    <noscript>
+      <h1 class="text-text text-center">This website requires Javascript.</h1>
 
-    <h1 id="output1" class="text-text text-center mt-5 hover:cursor-pointer" onclick="copyToClipboard()">cubic-bezier(x,y,x,y)</h1>
+      <style type="text/css">
+        #content { display:none; }
+      </style>
+    </noscript>
 
-    <h3 class="text-text text-center mt-11">Hover your mouse over the bubble to see animation</h3>
-    <div class="border-2 border-muted max-w-xl rounded-full mt-5 px-1 py-1 mx-auto">
-      <span id="animate" class="w-0 p-4 hover:w-full bg-love rounded-full align-top inline-block"></span>
-    </div>
+    <div id="content">
+      <canvas id="canvas" class="mx-auto mt-24 block" width="300" height="300"></canvas>
 
-    <div class="mt-5 max-w-xl mx-auto whitespace-nowrap flex items-center gap-x-3">
-      <input class="flex-1" id="range-slider" type="range" min="0.1" max="10" value="2" step="0.1">
-      <h3 class="text-text flex-none hover:cursor-pointer" onclick="resetTime()" id="range-label"></h3>
-    </div>
+      <h1 id="output1" class="text-text text-center mt-5 hover:cursor-pointer" onclick="copyToClipboard()">cubic-bezier(x,y,x,y)</h1>
+
+      <h3 class="text-text text-center mt-11">Hover your mouse over the bubble to see animation</h3>
+      <div class="border-2 border-muted max-w-xl rounded-full mt-5 px-1 py-1 mx-auto">
+        <span id="animate" class="w-0 p-4 hover:w-full bg-love rounded-full align-top inline-block"></span>
+      </div>
+      
+      <div class="mt-5 max-w-xl mx-auto whitespace-nowrap flex items-center gap-x-3">
+        <input class="flex-1" id="range-slider" type="range" min="0.1" max="10" value="2" step="0.1">
+        <h3 class="text-text flex-none hover:cursor-pointer" onclick="resetTime()" id="range-label"></h3>
+      </div>
 
       <a id="code-link" class="text-center block mt-11" href="https://github.com/garikmi/cubic-bezier.github.io" target="_blank">Code on GitHub</a>
+    </div>
 
     <script src="javascript.js"></script>
   </body>
