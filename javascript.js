@@ -188,11 +188,15 @@ function displayCoordinates(x1, y1, x2, y2) {
 }
 
 // Copy to clipboard
-// Then set text to 'copied'
+// Then set text to 'copied' and reset after 2 seconds
 function copyToClipboard() {
   var value = `cubic-bezier(${x_handle1},${y_handle1},${x_handle2},${y_handle2})`;
   navigator.clipboard.writeText(value);
+
   document.getElementById("output1").innerHTML = "Copied!";
+  setTimeout(function(){
+    document.getElementById("output1").innerHTML = `cubic-bezier(${x_handle1},${y_handle1},${x_handle2},${y_handle2})`;
+  }, 2000);
 }
 
 // Drawing
