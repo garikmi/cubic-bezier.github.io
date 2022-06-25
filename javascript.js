@@ -178,25 +178,30 @@ function calculateHandleCoords() {
   y_handle2 = `${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
 }
 
-function setAnimation(speed, x1, y1, x2, y2) {
+function setAnimation(speed) {
   document.getElementById("animate").style.transitionDuration = speed;
-  document.getElementById("animate").style.transitionTimingFunction = `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
+  document.getElementById("animate").style.transitionTimingFunction = coordsToText();
 }
 
-function displayCoordinates(x1, y1, x2, y2) {
-  document.getElementById("output1").innerHTML = `cubic-bezier(${x1},${y1},${x2},${y2})`;
+// Return a string of handle coordinates
+function displayCoordinates() {
+  document.getElementById("output1").innerHTML = coordsToText();
 }
 
 // Copy to clipboard
 // Then set text to 'copied' and reset after 2 seconds
 function copyToClipboard() {
-  var value = `cubic-bezier(${x_handle1},${y_handle1},${x_handle2},${y_handle2})`;
+  var value = coordsToText();
   navigator.clipboard.writeText(value);
 
   document.getElementById("output1").innerHTML = "Copied!";
   setTimeout(function(){
-    document.getElementById("output1").innerHTML = `cubic-bezier(${x_handle1},${y_handle1},${x_handle2},${y_handle2})`;
+    document.getElementById("output1").innerHTML = coordsToText();
   }, 2000);
+}
+
+function coordsToText() {
+  return `${x_handle1}, ${y_handle1}, ${x_handle2}, ${y_handle2}`
 }
 
 // Drawing
