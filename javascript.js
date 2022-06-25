@@ -187,6 +187,12 @@ function displayCoordinates(x1, y1, x2, y2) {
   document.getElementById("output1").innerHTML = `cubic-bezier(${x1},${y1},${x2},${y2})`;
 }
 
+// Copy to clipboard
+function copyToClipboard() {
+  var value = `cubic-bezier(${x_handle1},${y_handle1},${x_handle2},${y_handle2})`;
+  navigator.clipboard.writeText(value);
+}
+
 // Drawing
 function drawLine(from_x, from_y, to_x, to_y, color, width) {
   ctx.beginPath();
