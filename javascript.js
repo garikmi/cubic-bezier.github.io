@@ -43,12 +43,12 @@ var slider = document.getElementById("range-slider");
 var output = document.getElementById("range-label");
 output.innerHTML = (parseFloat(slider.value)).toFixed(1);
 animation_speed = parseFloat(slider.value);
-setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
+setAnimation(`${animation_speed}s`);
 
 slider.oninput = function() {
   output.innerHTML = (parseFloat(this.value)).toFixed(1);
   animation_speed = parseFloat(slider.value);
-  setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
+  setAnimation(`${animation_speed}s`);
 }
 
 // Detect if window is resized, update variables and redraw everything
@@ -71,8 +71,8 @@ function resizeCanvas() {
   calculateHandleCoords();
 
   drawStuff(); 
-  setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
-  displayCoordinates(x_handle1, y_handle1, x_handle2, y_handle2);
+  setAnimation(`${animation_speed}s`);
+  displayCoordinates();
 }
 
 resizeCanvas();
@@ -128,7 +128,7 @@ document.onmouseup = handleMouseUp;
 function handleMouseUp() {
   selected = null;
   document.onmousemove = null;
-  setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
+  setAnimation(`${animation_speed}s`);
   document.getElementById("canvas").style.cursor = "default";
 }
 
@@ -161,7 +161,7 @@ function handleMouseMove(event) {
   calculateHandleCoords();
   
   drawStuff();
-  displayCoordinates(x_handle1, y_handle1, x_handle2, y_handle2);
+  displayCoordinates();
 }
 
 // Listen for mouse clicks on canvas
@@ -178,9 +178,10 @@ function calculateHandleCoords() {
   y_handle2 = `${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
 }
 
-function setAnimation(speed, x1, y1, x2, y2) {
+// Set animation
+function setAnimation(speed) {
   document.getElementById("animate").style.transitionDuration = speed;
-  document.getElementById("animate").style.transitionTimingFunction = `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
+  document.getElementById("animate").style.transitionTimingFunction = `cubic-bezier(${coordsToText()})`;
 }
 
 // Return a string of handle coordinates
@@ -246,5 +247,5 @@ function resetTime() {
   document.getElementById("range-slider").value = "2";
   animation_speed = "2.0";
   output.innerHTML = (parseFloat(slider.value)).toFixed(1);
-  setAnimation(`${animation_speed}s`, x_handle1, y_handle1, x_handle2, y_handle2);
+  setAnimation(`${animation_speed}s`);
 }
