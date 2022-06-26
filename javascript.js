@@ -178,9 +178,9 @@ function calculateHandleCoords() {
   y_handle2 = `${(((-handle2_y + vertical_margins) + (WIDTH - vertical_margins * 2)) / (WIDTH - vertical_margins * 2)).toFixed(2).replace(/[.,]00$/, "")}`;
 }
 
-function setAnimation(speed) {
+function setAnimation(speed, x1, y1, x2, y2) {
   document.getElementById("animate").style.transitionDuration = speed;
-  document.getElementById("animate").style.transitionTimingFunction = coordsToText();
+  document.getElementById("animate").style.transitionTimingFunction = `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
 }
 
 // Return a string of handle coordinates
