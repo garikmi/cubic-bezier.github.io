@@ -249,3 +249,18 @@ function resetTime() {
   output.innerHTML = (parseFloat(slider.value)).toFixed(1);
   setAnimation(`${animation_speed}s`);
 }
+
+// 
+function setCoords(x1, y1, x2, y2) {
+  handle1_x = (WIDTH - horizontal_margins * 2) * x1 + horizontal_margins
+  handle1_y = -((HEIGHT - vertical_margins * 2) * y1 + vertical_margins) + HEIGHT
+
+  handle2_x = (WIDTH - horizontal_margins * 2) * x2 + horizontal_margins
+  handle2_y = -((HEIGHT - vertical_margins * 2) * y2 + vertical_margins) + HEIGHT
+
+  calculateHandleCoords();
+
+  drawStuff(); 
+  setAnimation(`${animation_speed}s`);
+  displayCoordinates();
+}
